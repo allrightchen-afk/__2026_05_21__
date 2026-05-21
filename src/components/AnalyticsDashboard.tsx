@@ -94,8 +94,8 @@ export default function AnalyticsDashboard({ result, onReset, fileName }: Analyt
             {/* Gradients */}
             <defs>
               <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#0055ff" stopOpacity="0.15" />
-                <stop offset="100%" stopColor="#0055ff" stopOpacity="0.00" />
+                <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.25" />
+                <stop offset="100%" stopColor="#6366f1" stopOpacity="0.00" />
               </linearGradient>
             </defs>
 
@@ -110,7 +110,7 @@ export default function AnalyticsDashboard({ result, onReset, fileName }: Analyt
                     y1={y}
                     x2={svgWidth - paddingRight}
                     y2={y}
-                    stroke="#f3f4f6"
+                    stroke="rgba(255, 255, 255, 0.05)"
                     strokeWidth="1"
                     strokeDasharray={i === 0 ? "0" : "4 4"}
                   />
@@ -118,7 +118,7 @@ export default function AnalyticsDashboard({ result, onReset, fileName }: Analyt
                     x={paddingLeft - 12}
                     y={y + 4}
                     textAnchor="end"
-                    className="text-[10px] fill-gray-400 font-mono"
+                    className="text-[10px] fill-gray-500 font-mono"
                   >
                     {val >= 1000000 ? `${(val / 1000000).toFixed(1)}M` : val >= 1000 ? `${(val / 1000).toFixed(0)}k` : val.toFixed(0)}
                   </text>
@@ -136,10 +136,10 @@ export default function AnalyticsDashboard({ result, onReset, fileName }: Analyt
                <path
                 d={pathD}
                 fill="none"
-                stroke="#0055ff"
+                stroke="#8b5cf6"
                 strokeWidth="4"
-                strokeLinecap="square"
-                strokeLinejoin="miter"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 className="transition-all duration-700"
               />
             )}
@@ -155,9 +155,9 @@ export default function AnalyticsDashboard({ result, onReset, fileName }: Analyt
                     cx={x}
                     cy={y}
                     r={isHovered ? "8" : "5"}
-                    fill={isHovered ? "#0055ff" : "#ffffff"}
-                    stroke="#1a1a1a"
-                    strokeWidth={isHovered ? "4" : "2.5"}
+                    fill={isHovered ? "#a78bfa" : "#0b0f19"}
+                    stroke={isHovered ? "#ffffff" : "#8b5cf6"}
+                    strokeWidth={isHovered ? "3.5" : "2.5"}
                     onMouseEnter={() => setHoveredDataPoint(s)}
                     onMouseLeave={() => setHoveredDataPoint(null)}
                     className="transition-all duration-200"
@@ -166,7 +166,7 @@ export default function AnalyticsDashboard({ result, onReset, fileName }: Analyt
                     x={x}
                     y={y - 12}
                     textAnchor="middle"
-                    className={`text-[10px] font-bold fill-indigo-600 transition-opacity duration-200 ${
+                    className={`text-[10px] font-bold fill-violet-400 transition-opacity duration-200 ${
                       isHovered ? "opacity-100" : "opacity-0 md:hover:opacity-100"
                     }`}
                   >
@@ -210,12 +210,12 @@ export default function AnalyticsDashboard({ result, onReset, fileName }: Analyt
       const radius = 95;
 
       const colors = [
-        "#1a1a1a", // Ink Dark
-        "#0055ff", // Accent Blue
+        "#6366f1", // Indigo
+        "#8b5cf6", // Violet
+        "#ec4899", // Pink
         "#10b981", // Emerald Green
-        "#f59e0b", // Amber Yellow
-        "#ef4444", // Red
-        "#8b5cf6"  // Purple
+        "#3b82f6", // Blue
+        "#f59e0b"  // Amber Yellow
       ];
 
       return (
@@ -261,7 +261,7 @@ export default function AnalyticsDashboard({ result, onReset, fileName }: Analyt
                       key={idx}
                       d={`${pathString} L 0 0 Z`}
                       fill={colors[idx % colors.length]}
-                      stroke="#ffffff"
+                      stroke="rgba(15, 23, 42, 0.9)"
                       strokeWidth="2.5"
                       className="cursor-pointer transition-all duration-300 hover:opacity-95"
                       onMouseEnter={() => setHoveredDataPoint(s)}
@@ -270,9 +270,9 @@ export default function AnalyticsDashboard({ result, onReset, fileName }: Analyt
                   );
                 })}
                 {/* Center hole for Donut feel */}
-                <circle cx="0" cy="0" r="55" fill="#ffffff" />
-                <text x="0" y="-2" textAnchor="middle" className="text-[10px] font-bold fill-gray-400">總計數據</text>
-                <text x="0" y="16" textAnchor="middle" className="text-sm font-extrabold fill-gray-800">
+                <circle cx="0" cy="0" r="55" fill="#151d30" />
+                <text x="0" y="-2" textAnchor="middle" className="text-[10px] font-bold fill-slate-400">總計數據</text>
+                <text x="0" y="16" textAnchor="middle" className="text-sm font-extrabold fill-[#f8fafc]">
                   {total >= 1000000 ? `${(total/1000000).toFixed(1)}M` : total.toLocaleString()}
                 </text>
               </g>
@@ -281,7 +281,7 @@ export default function AnalyticsDashboard({ result, onReset, fileName }: Analyt
 
           {/* List of segment details */}
           <div className="md:col-span-2 space-y-2">
-            <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">佔比細節清單</h4>
+            <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">佔比細節清單</h4>
             <div className="space-y-1.5 max-h-[220px] overflow-y-auto pr-1">
               {series.map((s, idx) => {
                 const pct = ((s.value / total) * 100).toFixed(1);
@@ -292,7 +292,7 @@ export default function AnalyticsDashboard({ result, onReset, fileName }: Analyt
                     onMouseEnter={() => setHoveredDataPoint(s)}
                     onMouseLeave={() => setHoveredDataPoint(null)}
                     className={`flex items-center justify-between p-2 rounded-lg text-xs transition-colors ${
-                      isHovered ? "bg-indigo-50/50" : "hover:bg-gray-50"
+                      isHovered ? "bg-white/10" : "hover:bg-white/5"
                     }`}
                   >
                     <div className="flex items-center gap-2">
@@ -300,11 +300,11 @@ export default function AnalyticsDashboard({ result, onReset, fileName }: Analyt
                         className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                         style={{ backgroundColor: colors[idx % colors.length] }}
                       />
-                      <span className="font-medium text-gray-700 truncate max-w-[120px]">{s.name}</span>
+                      <span className="font-medium text-slate-300 truncate max-w-[120px]">{s.name}</span>
                     </div>
                     <div className="flex items-center gap-2 font-mono">
-                      <span className="font-semibold text-gray-800">{s.value.toLocaleString()}</span>
-                      <span className="text-gray-400 text-[10px] font-normal">({pct}%)</span>
+                      <span className="font-semibold text-white">{s.value.toLocaleString()}</span>
+                      <span className="text-slate-400 text-[10px] font-normal">({pct}%)</span>
                     </div>
                   </div>
                 );
@@ -324,12 +324,12 @@ export default function AnalyticsDashboard({ result, onReset, fileName }: Analyt
           <svg className="w-full h-auto" viewBox={`0 0 ${svgWidth} ${svgHeight}`} id="svg-bar-chart">
             <defs>
               <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#1a1a1a" />
-                <stop offset="100%" stopColor="#333333" />
+                <stop offset="0%" stopColor="#6366f1" />
+                <stop offset="100%" stopColor="#8b5cf6" />
               </linearGradient>
               <linearGradient id="barGradHover" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#0055ff" />
-                <stop offset="100%" stopColor="#0044cc" />
+                <stop offset="0%" stopColor="#ec4899" />
+                <stop offset="100%" stopColor="#f43f5e" />
               </linearGradient>
             </defs>
 
@@ -344,7 +344,7 @@ export default function AnalyticsDashboard({ result, onReset, fileName }: Analyt
                     y1={y}
                     x2={svgWidth - paddingRight}
                     y2={y}
-                    stroke="#f3f4f6"
+                    stroke="rgba(255, 255, 255, 0.05)"
                     strokeWidth="1"
                     strokeDasharray={i === 0 ? "0" : "4 4"}
                   />
@@ -352,7 +352,7 @@ export default function AnalyticsDashboard({ result, onReset, fileName }: Analyt
                     x={paddingLeft - 12}
                     y={y + 4}
                     textAnchor="end"
-                    className="text-[10px] fill-gray-400 font-mono"
+                    className="text-[10px] fill-gray-500 font-mono"
                   >
                     {val >= 1000000 ? `${(val / 1000000).toFixed(1)}M` : val >= 1000 ? `${(val / 1000).toFixed(0)}k` : val.toFixed(0)}
                   </text>
@@ -376,8 +376,8 @@ export default function AnalyticsDashboard({ result, onReset, fileName }: Analyt
                     y={y - 4}
                     width={barWidth + 8}
                     height={barHeight + 4}
-                    fill="#e0e7ff"
-                    opacity={isHovered ? 0.35 : 0}
+                    fill="#8b5cf6"
+                    opacity={isHovered ? 0.25 : 0}
                     rx="6"
                     className="transition-opacity duration-200"
                   />
@@ -398,7 +398,7 @@ export default function AnalyticsDashboard({ result, onReset, fileName }: Analyt
                     x={barCenterX}
                     y={y - 8}
                     textAnchor="middle"
-                    className={`text-[10px] font-bold fill-indigo-600 transition-opacity duration-200 ${
+                    className={`text-[10px] font-bold fill-violet-400 transition-opacity duration-200 ${
                       isHovered ? "opacity-100" : "opacity-0 md:hover:opacity-100"
                     }`}
                   >
@@ -417,7 +417,7 @@ export default function AnalyticsDashboard({ result, onReset, fileName }: Analyt
                   x={barCenterX}
                   y={svgHeight - paddingBottom + 20}
                   textAnchor="middle"
-                  className="text-[10px] fill-gray-400 font-medium truncate max-w-[80px]"
+                  className="text-[10px] fill-gray-500 font-medium truncate max-w-[80px]"
                 >
                   {s.name}
                 </text>

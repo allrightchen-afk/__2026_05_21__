@@ -1,6 +1,0 @@
-{
-  "name": "AI 數據分析與洞察工具",
-  "description": "一個強大的數據分析與洞察工具，貼上 CSV 報表，由 AI 即時為您進行深入分析並生成洞察報告。",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

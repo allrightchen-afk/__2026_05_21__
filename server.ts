@@ -20,7 +20,7 @@ function getGenAI(): GoogleGenAI {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       throw new Error(
-        "請在系統的 Settings > Secrets 中設定 GEMINI_API_KEY，然後重新嘗試分析。"
+        "請在環境變數或 .env 檔案中設定 GEMINI_API_KEY，然後重新嘗試分析。"
       );
     }
     aiInstance = new GoogleGenAI({
